@@ -10,12 +10,22 @@ class Category extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
+        /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
         'name',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'deleted_at',
+        'updated_at'
     ];
 }

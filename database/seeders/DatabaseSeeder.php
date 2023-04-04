@@ -17,11 +17,13 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'role' => 'user_app',
         ]);
 
         \App\Models\User::factory()->create([
             'name' => 'Test Admin',
             'email' => 'admin@example.com',
+            'role' => 'admin_app',
         ]);
 
         $this->call(CategorySeeder::class);

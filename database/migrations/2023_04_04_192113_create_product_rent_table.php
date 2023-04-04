@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('name', 250);
             $table->double('price', 19, 2);
+            $table->integer('quantity');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('rent_id');
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('no action')->onUpdate('no action');
             $table->foreign('rent_id')->references('id')->on('rents')->onDelete('cascade')->onUpdate('cascade');
         });
     }

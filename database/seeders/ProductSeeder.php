@@ -66,12 +66,12 @@ class ProductSeeder extends Seeder
             ),
             array(
                 'category_id'    => 3,
-                'name'  => 'herramientas de diagnóstico inalámbricas',
+                'name'  => 'diagnóstico inalámbricas',
                 'price' => 5500
             ),
             array(
                 'category_id'    => 3,
-                'name'  => 'herramientas de medición',
+                'name'  => 'medición',
                 'price' => 6000
             ),
         ];

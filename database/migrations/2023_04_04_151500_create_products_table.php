@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 250);
             $table->double('price', 19, 2);
+            $table->integer('quantity');
             $table->unsignedBigInteger('category_id');
             $table->softDeletes();
             $table->timestamps();

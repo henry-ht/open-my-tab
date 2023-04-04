@@ -24,7 +24,6 @@ return new class extends Migration
             ])->default('user_app');
             $table->timestamps();
 
-
             // $table->unsignedBigInteger('student_id');
             // $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade')->onUpdate('cascade');
         });

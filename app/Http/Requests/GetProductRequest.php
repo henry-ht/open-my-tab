@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class GetProductRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class GetProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Gate::allows('is_admin') || Gate::allows('is_user');
     }
 
     /**
@@ -22,7 +23,7 @@ class GetProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'category_id' => 'sometimes|required|integer|exists:categories,id'
         ];
     }
 }
