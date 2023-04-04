@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('product_rent', function (Blueprint $table) {
+        Schema::create('product_rent', function (Blueprint $table) {
             $table->id();
             $table->string('name', 250);
             $table->double('price', 19, 2);
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('rent_id');
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('rent_id')->references('id')->on('rents')->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -29,8 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('product_rent', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('product_rent');
     }
 };

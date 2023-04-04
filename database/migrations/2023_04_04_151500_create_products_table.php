@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 250);
             $table->double('price', 19, 2);
             $table->unsignedBigInteger('category_id');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('no action')->onUpdate('no action');
