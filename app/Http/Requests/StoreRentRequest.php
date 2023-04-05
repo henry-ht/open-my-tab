@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class StoreRentRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StoreRentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Gate::allows('is_admin') || Gate::allows('is_user');
     }
 
     /**
@@ -22,7 +23,10 @@ class StoreRentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'product_ids'   => 'required|array|min:1',
+            'product_ids.*' => 'required|integer|exists:products,id',
+            'start_date'    => 'required|date_format:Y-m-d|before_or_equal:end_date',
+            'end_date'      => 'required|date_format:Y-m-d|after_or_equal:start_date',
         ];
     }
 }

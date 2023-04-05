@@ -62,7 +62,7 @@ class ProductController extends Controller
 
             return response()->json($response, 200);
         } catch (\Throwable $th) {
-            $response['message'] = $th->getMessage();
+            $response['message'] = 'oops, something is not right'; //$th->getMessage()
             $response['status'] = 'warning';
 
             return response()->json($response, 500);
@@ -94,7 +94,7 @@ class ProductController extends Controller
 
             return response()->json($response, 200);
         } catch (\Throwable $th) {
-            $response['message'] = $th->getMessage();
+            $response['message'] = 'oops, something is not right'; //$th->getMessage()
             $response['status'] = 'warning';
 
             return response()->json($response, 500);

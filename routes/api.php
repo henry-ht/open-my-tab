@@ -34,5 +34,6 @@ Route::group([
     Route::get("product/restore/{product}", [ProductController::class, 'restore'], ['parameters' => [
         'product' => 'product',
     ]])->withTrashed();
+
     Route::apiResource("rent", RentController::class);
 });

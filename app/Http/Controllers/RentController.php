@@ -6,6 +6,7 @@ use App\Http\Requests\GetRentRequest;
 use App\Models\Rent;
 use App\Http\Requests\StoreRentRequest;
 use App\Http\Requests\UpdateRentRequest;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -59,35 +60,49 @@ class RentController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreRentRequest $request)
     {
-        //
-    }
+        $response = [
+            'status' => 'success',
+            'data'    => false,
+            'message' => '',
+        ];
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Rent $rent)
-    {
-        //
-    }
+        $credentials = $request->only([
+            'product_ids',
+            'start_date',
+            'end_date'
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Rent $rent)
-    {
-        //
+        try {
+            $productIds = $credentials['product_ids'];
+            $credentials['user_id'] = Auth::user()->id;
+            unset($credentials['product_ids']);
+
+            $data = Rent::create($credentials);
+
+            foreach ($productIds as $key => $value) {
+                $product = Product::where('id', $value)->first();
+                $data->products()->attach($value, [
+                    'name'          => $product->name,
+                    'price'         => $product->price,
+                    'quantity'      => $product->quantity,
+                    'category_id'   => $product->category_id,
+                ]);
+            }
+
+            $response['message'] = 'rent created';
+            $response['data'] = $data->load('productRent');
+
+            return response()->json($response, 200);
+        } catch (\Throwable $th) {
+            $response['message'] = 'oops, something is not right'; //$th->getMessage()
+            $response['status'] = 'warning';
+
+            return response()->json($response, 500);
+        }
     }
 
     /**
@@ -95,7 +110,29 @@ class RentController extends Controller
      */
     public function update(UpdateRentRequest $request, Rent $rent)
     {
-        //
+        $response = [
+            'status' => 'success',
+            'data'    => false,
+            'message' => '',
+        ];
+
+        $credentials = $request->only([
+            'status',
+        ]);
+
+        try {
+            $rent->fill($credentials)->save();
+
+            $response['message'] = 'rent updated';
+            $response['data'] = $credentials;
+
+            return response()->json($response, 200);
+        } catch (\Throwable $th) {
+            $response['message'] = 'oops, something is not right'; //$th->getMessage()
+            $response['status'] = 'warning';
+
+            return response()->json($response, 500);
+        }
     }
 
     /**
@@ -103,6 +140,14 @@ class RentController extends Controller
      */
     public function destroy(Rent $rent)
     {
-        //
+        $response = [
+            'status' => 'success',
+            'data'    => false,
+            'message' => '',
+        ];
+
+        $response['message'] = 'product deleted';
+        $response['data'] = $rent->delete();
+        return response()->json($response, 200);
     }
 }
