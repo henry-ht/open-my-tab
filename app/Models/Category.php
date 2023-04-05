@@ -28,4 +28,8 @@ class Category extends Model
         'deleted_at',
         'updated_at'
     ];
+
+    public function product(){
+        return $this->hasOne(Product::class);
+    }
 }

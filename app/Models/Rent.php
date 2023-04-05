@@ -9,4 +9,38 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Rent extends Model
 {
     use HasFactory, SoftDeletes;
+
+        /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'status',
+        'start_date',
+        'end_date',
+        'user_id'
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'deleted_at',
+        'updated_at'
+    ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function productRent(){
+        return $this->hasMany(ProductRent::class);
+    }
+
+    public function products(){
+        return $this->belongsToMany(Product::class);
+    }
 }

@@ -18,10 +18,12 @@ return new class extends Migration
             $table->integer('quantity');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('rent_id');
+            $table->unsignedBigInteger('product_id');
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('no action')->onUpdate('no action');
             $table->foreign('rent_id')->references('id')->on('rents')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('no action')->onUpdate('no action');
         });
     }
 

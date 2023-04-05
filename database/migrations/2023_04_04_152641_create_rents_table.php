@@ -16,9 +16,11 @@ return new class extends Migration
             $table->enum('status', ['pending', 'active', 'complete', 'cancelled'])->default('pending');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
+            $table->unsignedBigInteger('user_id');
+            $table->softDeletes();
             $table->timestamps();
 
-
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

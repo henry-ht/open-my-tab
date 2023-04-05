@@ -22,6 +22,7 @@ class ProductController extends Controller
 
         $filters = $request->only([
             'category_id',
+            'product_id'
         ]);
 
         $products = Product::query();

@@ -3,12 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class Product extends Model
+class ProductRent extends Pivot
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -31,11 +30,7 @@ class Product extends Model
         'updated_at'
     ];
 
-    public function category(){
-        return $this->belongsTo(Category::class);
-    }
-
     public function rents(){
-        return $this->belongsToMany(Rents::class);
+        return $this->belongsTo(Rent::class);
     }
 }
