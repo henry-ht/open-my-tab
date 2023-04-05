@@ -32,7 +32,7 @@ class ProductController extends Controller
 
         $response['message'] = 'all data';
         $response['data'] = $products->get();
-        
+
         return response()->json($response, 200);
     }
 
@@ -41,7 +41,31 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $response = [
+            'status' => 'success',
+            'data'    => false,
+            'message' => '',
+        ];
+
+        $credentials = $request->only([
+            'category_id',
+            'name',
+            'price'
+        ]);
+
+        try {
+            $product->fill($credentials)->save();
+
+            $response['message'] = 'product updated';
+            $response['data'] = $credentials;
+
+            return response()->json($response, 200);
+        } catch (\Throwable $th) {
+            $response['message'] = $th->getMessage();
+            $response['status'] = 'warning';
+
+            return response()->json($response, 500);
+        }
     }
 
     /**
@@ -49,7 +73,31 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        $response = [
+            'status' => 'success',
+            'data'    => false,
+            'message' => '',
+        ];
+
+        $credentials = $request->only([
+            'category_id',
+            'name',
+            'price'
+        ]);
+
+        try {
+            $data = Product::create($credentials);
+
+            $response['message'] = 'product created';
+            $response['data'] = $data;
+
+            return response()->json($response, 200);
+        } catch (\Throwable $th) {
+            $response['message'] = $th->getMessage();
+            $response['status'] = 'warning';
+
+            return response()->json($response, 500);
+        }
     }
 
     /**
@@ -57,6 +105,38 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $response = [
+            'status' => 'success',
+            'data'    => false,
+            'message' => '',
+        ];
+
+        $response['message'] = 'product deleted';
+        $response['data'] = $product->delete();
+        return response()->json($response, 200);
+    }
+
+    /**
+     * restore the specified resource from storage.
+     */
+    public function restore(Product $product)
+    {
+        $response = [
+            'status' => 'success',
+            'data'    => false,
+            'message' => '',
+        ];
+
+        if($product->trashed()){
+            $response['message'] = 'product restored';
+            $response['data'] = $product->restore();
+            return response()->json($response, 200);
+        }else{
+            $response['message'] = 'product was not restored';
+            $response['status'] = 'warning';
+            $response['data'] = false;
+            return response()->json($response, 500);
+        }
+
     }
 }

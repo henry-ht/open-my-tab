@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class UpdateProductRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Gate::allows('is_admin');
     }
 
     /**
@@ -22,7 +23,9 @@ class UpdateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'category_id' => 'sometimes|required|integer|exists:categories,id',
+            'price'       => 'required|numeric|min:0|between:0,99999999999999.99',
+            'name'        => 'required|string|unique:products,name,'.$this->product->id,
         ];
     }
 }

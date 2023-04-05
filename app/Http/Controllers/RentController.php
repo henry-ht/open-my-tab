@@ -13,7 +13,18 @@ class RentController extends Controller
      */
     public function index()
     {
-        //
+        $response = [
+            'status' => 'success',
+            'data'    => false,
+            'message' => '',
+        ];
+
+        $rents = Rent::query();
+
+        $response['message'] = 'all data';
+        $response['data'] = $rents->get();
+        
+        return response()->json($response, 200);
     }
 
     /**

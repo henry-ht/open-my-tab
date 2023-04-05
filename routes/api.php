@@ -29,6 +29,10 @@ Route::group([
     'middleware'    => ['auth:sanctum']
 ], function (){
     Route::get("category", [CategoryController::class, 'index']);
-    Route::get("product", [ProductController::class, 'index']);
+
+    Route::apiResource("product", ProductController::class);
+    Route::get("product/restore/{product}", [ProductController::class, 'restore'], ['parameters' => [
+        'product' => 'product',
+    ]])->withTrashed();
     Route::apiResource("rent", RentController::class);
 });
