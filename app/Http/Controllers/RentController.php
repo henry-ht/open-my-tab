@@ -10,11 +10,6 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
-use Tzsk\Payu\Concerns\Attributes;
-use Tzsk\Payu\Concerns\Customer;
-use Tzsk\Payu\Concerns\Transaction;
-use Tzsk\Payu\Facades\Payu;
-
 class RentController extends Controller
 {
     /**
@@ -87,9 +82,10 @@ class RentController extends Controller
             unset($credentials['product_ids']);
 
             $data = Rent::create($credentials);
-
+            $total = 0;
             foreach ($productIds as $key => $value) {
                 $product = Product::where('id', $value)->first();
+                $total = $total + $product->price;
                 $data->products()->attach($value, [
                     'name'          => $product->name,
                     'price'         => $product->price,
@@ -98,23 +94,8 @@ class RentController extends Controller
                 ]);
             }
 
-            $customer = Customer::make()
-                            ->firstName('John Doe')
-                            ->email('john@example.com');
 
-
-            $attributes = Attributes::make()
-                            ->udf1('anything');
-
-            $transaction = Transaction::make()
-                            ->charge(100)
-                            ->for('Product')
-                            ->with($attributes)
-                            ->to($customer);
-
-            Payu::initiate($transaction);
-
-            $data->transaction_id = $transaction->transactionId;
+            $data->transaction_id = '';
             $data->save();
 
             $response['message'] = 'rent created';
@@ -123,7 +104,8 @@ class RentController extends Controller
 
             return response()->json($response, 200);
         } catch (\Throwable $th) {
-            $response['message'] = 'oops, something is not right'; //$th->getMessage()
+            // $response['message'] = 'oops, something is not right'; //$th->getMessage()
+            $response['message'] = $th->getMessage();
             $response['status'] = 'warning';
 
             return response()->json($response, 500);

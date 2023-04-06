@@ -21,7 +21,6 @@ class TransactionInitiatedListener
      */
     public function handle(object $event): void
     {
-        $transactionId = $event->transaction->transactionId;
 
         Test::create([
             'data' => "init"

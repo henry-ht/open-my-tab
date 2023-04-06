@@ -18,6 +18,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        // TransactionInitiated::class => [\App\Listeners\TransactionInitiatedListener::class],
+        // TransactionSuccessful::class => [\App\Listeners\TransactionSuccessfulListener::class],
+        // TransactionFailed::class => [\App\Listeners\TransactionFailedListener::class],
+        // TransactionInvalidated::class => [\App\Listeners\TransactionInvalidatedListener::class],
     ];
 
     /**
