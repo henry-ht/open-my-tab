@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class UpdateRentRequest extends FormRequest
@@ -12,7 +13,7 @@ class UpdateRentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Gate::allows('is_admin') || Gate::allows('is_user');
+        return Gate::allows('is_admin') || (Auth::user()->id == $this->rent->user_id);
     }
 
     /**

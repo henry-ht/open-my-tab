@@ -25,8 +25,8 @@ class StoreRentRequest extends FormRequest
         return [
             'product_ids'   => 'required|array|min:1',
             'product_ids.*' => 'required|integer|exists:products,id',
-            'start_date'    => 'required|date_format:Y-m-d|before_or_equal:end_date',
-            'end_date'      => 'required|date_format:Y-m-d|after_or_equal:start_date',
+            'start_date'    => 'required|date_format:Y-m-d H:i|before_or_equal:end_date',
+            'end_date'      => 'required|date_format:Y-m-d H:i|after_or_equal:start_date',
         ];
     }
 }
