@@ -16,6 +16,7 @@ return new class extends Migration
             $table->enum('status', ['pending', 'active', 'complete', 'cancelled'])->default('pending');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
+            $table->string('transaction_id', 200)->unique()->nullable();
             $table->unsignedBigInteger('user_id');
             $table->softDeletes();
             $table->timestamps();

@@ -10,6 +10,11 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
+use Tzsk\Payu\Concerns\Attributes;
+use Tzsk\Payu\Concerns\Customer;
+use Tzsk\Payu\Concerns\Transaction;
+use Tzsk\Payu\Facades\Payu;
+
 class RentController extends Controller
 {
     /**
@@ -93,8 +98,28 @@ class RentController extends Controller
                 ]);
             }
 
+            $customer = Customer::make()
+                            ->firstName('John Doe')
+                            ->email('john@example.com');
+
+
+            $attributes = Attributes::make()
+                            ->udf1('anything');
+
+            $transaction = Transaction::make()
+                            ->charge(100)
+                            ->for('Product')
+                            ->with($attributes)
+                            ->to($customer);
+
+            Payu::initiate($transaction);
+
+            $data->transaction_id = $transaction->transactionId;
+            $data->save();
+
             $response['message'] = 'rent created';
-            $response['data'] = $data->load('productRent');
+            // $response['data'] = $data->load('productRent');
+            $response['data'] = $data;
 
             return response()->json($response, 200);
         } catch (\Throwable $th) {
@@ -124,7 +149,7 @@ class RentController extends Controller
             $rent->fill($credentials)->save();
 
             $response['message'] = 'rent updated';
-            $response['data'] = $credentials;
+            $response['data'] = $rent;
 
             return response()->json($response, 200);
         } catch (\Throwable $th) {
