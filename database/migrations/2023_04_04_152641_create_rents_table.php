@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('rents', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['pending', 'active', 'complete', 'cancelled'])->default('pending');
+            $table->enum('order_state', ['pending', 'active', 'complete', 'cancelled'])->default('pending');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->string('transaction_id', 200)->unique()->nullable();
             $table->unsignedBigInteger('user_id');
+            $table->string('reference')->nullable();
+            $table->string('payu_order_id', 200)->unique()->nullable();
+            $table->string('transaction_id', 200)->unique()->nullable();
+            $table->string('state', 200)->nullable();
+            $table->string('value', 200)->nullable();
             $table->softDeletes();
             $table->timestamps();
 
