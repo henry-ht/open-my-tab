@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e8bc6bf18d485029da4f9504c0301ad",
+    "content-hash": "0fdcb2948db149f3147735c563488da9",
     "packages": [
         {
             "name": "alexo/laravel-payu",
