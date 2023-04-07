@@ -10,8 +10,6 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
-use Alexo\LaravelPayU\LaravelPayU;
-
 class RentController extends Controller
 {
     /**
@@ -62,15 +60,7 @@ class RentController extends Controller
     }
 
     public function prin(){
-        LaravelPayU::doPing(function($response) {
-            $code = $response->code;
 
-            dd($code);
-            // ... revisar el codigo de respuesta
-        }, function($error) {
-         // ... Manejo de errores PayUException
-         dd($error);
-        });
     }
 
     /**
@@ -110,31 +100,6 @@ class RentController extends Controller
 
             $newRent->value = $total.'.00';
             $newRent->save();
-
-            $data = [
-                \PayUParameters::DESCRIPTION => 'Payment cc test',
-                \PayUParameters::IP_ADDRESS => '127.0.0.1',
-                \PayUParameters::CURRENCY => 'USD',
-                \PayUParameters::CREDIT_CARD_NUMBER => '4578064886616572',
-                \PayUParameters::CREDIT_CARD_EXPIRATION_DATE => '10/2025',
-                \PayUParameters::CREDIT_CARD_SECURITY_CODE => '487'
-            ];
-
-            $newRent->payWith($data, function($response, $newRent) {
-                if ($response->code == 'SUCCESS') {
-                    $newRent->update([
-                        'payu_order_id' => $response->transactionResponse->orderId,
-                        'transaction_id' => $response->transactionResponse->transactionId
-                    ]);
-                    // ... El resto de acciones sobre la orden
-                } else {
-                //... El código de respuesta no fue exitoso
-                }
-                dd($response);
-            }, function($error) {
-                dd($error);
-                // ... Manejo de errores PayUException, InvalidArgument
-            });
 
             $response['message'] = 'rent created';
             // $response['data'] = $data->load('productRent');

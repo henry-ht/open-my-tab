@@ -4,60 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0fdcb2948db149f3147735c563488da9",
+    "content-hash": "4e86764c2b1a2dd9bcbca87cfb77da31",
     "packages": [
-        {
-            "name": "alexo/laravel-payu",
-            "version": "1.0.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/alejogutierrez/laravel-payu.git",
-                "reference": "5d1aacca2ba6f1fd8c30fc24c1d871ec1cf819fe"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/alejogutierrez/laravel-payu/zipball/5d1aacca2ba6f1fd8c30fc24c1d871ec1cf819fe",
-                "reference": "5d1aacca2ba6f1fd8c30fc24c1d871ec1cf819fe",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5.9"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.1",
-                "vlucas/phpdotenv": "^4.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Alexo\\LaravelPayU\\": "src/"
-                },
-                "classmap": [
-                    "sdk/lib"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Alejandro Gutiérrez",
-                    "email": "alejandrogutierrezacosta@gmail.com"
-                }
-            ],
-            "description": "Una interfaz fluida para Laravel usando el SDK oficial de PayU latam.",
-            "keywords": [
-                "laravel",
-                "pagos",
-                "payu"
-            ],
-            "support": {
-                "issues": "https://github.com/alejogutierrez/laravel-payu/issues",
-                "source": "https://github.com/alejogutierrez/laravel-payu/tree/1.0.8"
-            },
-            "time": "2020-05-21T22:49:57+00:00"
-        },
         {
             "name": "brick/math",
             "version": "0.10.2",
