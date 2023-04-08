@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Payments;
+use Illuminate\Support\Str;
 use App\Http\Requests\GetRentRequest;
 use App\Models\Rent;
 use App\Http\Requests\StoreRentRequest;
@@ -76,17 +78,27 @@ class RentController extends Controller
 
         $credentials = $request->only([
             'product_ids',
+            'payment_method',
             'start_date',
             'end_date'
         ]);
 
         try {
+            $reference = Str::random(10);
+
+            while (!empty(Rent::where("reference", $reference)->first())) {
+                $reference = Str::random(10);
+            }
+
             $productIds = $credentials['product_ids'];
+            $credentials['reference'] = $reference;
             $credentials['user_id'] = Auth::user()->id;
+            $credentials['payment_method'] = json_encode($credentials['payment_method']);
             unset($credentials['product_ids']);
 
             $newRent = Rent::create($credentials);
             $total = 0;
+
             foreach ($productIds as $key => $value) {
                 $product = Product::where('id', $value)->first();
                 $total = $total + $product->price;
@@ -98,12 +110,8 @@ class RentController extends Controller
                 ]);
             }
 
-            $newRent->value = $total.'.00';
-            $newRent->save();
-
             $response['message'] = 'rent created';
-            // $response['data'] = $data->load('productRent');
-            $response['data'] = $newRent;
+            $response['data'] = $newRent->load('productRent')->loadSum('productRent', 'price');
 
             return response()->json($response, 200);
         } catch (\Throwable $th) {

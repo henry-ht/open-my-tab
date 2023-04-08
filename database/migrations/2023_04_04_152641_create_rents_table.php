@@ -17,11 +17,10 @@ return new class extends Migration
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->unsignedBigInteger('user_id');
-            $table->string('reference')->nullable();
-            $table->string('payu_order_id', 200)->unique()->nullable();
-            $table->string('transaction_id', 200)->unique()->nullable();
-            $table->string('state', 200)->nullable();
-            $table->string('value', 200)->nullable();
+            $table->string('reference', 50)->unique();
+            $table->text('payment_method');
+            $table->string('payu_order_id', 250)->unique()->nullable();
+            $table->string('payment_status', 50)->nullable();
             $table->softDeletes();
             $table->timestamps();
 

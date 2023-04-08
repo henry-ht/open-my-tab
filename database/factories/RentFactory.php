@@ -20,11 +20,15 @@ class RentFactory extends Factory
         $status = ['pending', 'active', 'complete', 'cancelled'];
         $start_date = now()->addHours(random_int(1,6));
         $end_date = $start_date->clone()->addDay(random_int(1,6));
+
+        $card = $this->faker->creditCardDetails();
         return [
-            'status' => $status[random_int(0,3)],
+            'order_state' => $status[random_int(0,3)],
             'user_id' => User::get()->random()->id,
             'start_date' => $start_date,
             'end_date' => $end_date,
+            'reference' => $this->faker->numerify('pay-test-####'),
+            'payment_method' => '{"payer_email":"'.$this->faker->email().'","payer_name":"'.$card['name'].'","card_number":"4037997623271984","card_date":"2030\/12","card_code":"321","card_name":"VISA"}'
         ];
     }
 }

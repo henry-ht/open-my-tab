@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Alexo\LaravelPayU\Payable;
 
 class Rent extends Model
 {
-    use HasFactory, SoftDeletes, Payable;
+    use HasFactory, SoftDeletes;
 
         /**
      * The attributes that are mass assignable.
@@ -23,9 +22,8 @@ class Rent extends Model
         'user_id',
         'reference',
         'payu_order_id',
-        'transaction_id',
-        'state',
-        'value'
+        'payment_method',
+        'order_state',
     ];
 
     /**
@@ -34,6 +32,7 @@ class Rent extends Model
      * @var array<int, string>
      */
     protected $hidden = [
+        'payment_method',
         'deleted_at',
         'updated_at'
     ];

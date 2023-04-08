@@ -11,7 +11,7 @@ class dataFaker extends Command
      *
      * @var string
      */
-    protected $signature = 'db:faker {model} {--total=}';
+    protected $signature = 'db:faker {--total=}';
 
     /**
      * The console command description.

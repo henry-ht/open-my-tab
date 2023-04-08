@@ -17,62 +17,62 @@ class ProductSeeder extends Seeder
             array(
                 'category_id'    => 1,
                 'name'  => 'destornilladores',
-                'price' => 770
+                'price' => 67000
             ),
             array(
                 'category_id'    => 1,
                 'name'  => 'taladros',
-                'price' => 4500
+                'price' => 65000
             ),
             array(
                 'category_id'    => 1,
                 'name'  => 'sierras',
-                'price' => 2700
+                'price' => 87000
             ),
             array(
                 'category_id'    => 1,
                 'name'  => 'alicates',
-                'price' => 100
+                'price' => 80000
             ),
             array(
                 'category_id'    => 1,
                 'name'  => 'cinceles',
-                'price' => 500
+                'price' => 84000
             ),
             array(
                 'category_id'    => 2,
                 'name'  => 'flexómetro',
-                'price' => 300
+                'price' => 66000
             ),
             array(
                 'category_id'    => 2,
                 'name'  => 'micrómetro',
-                'price' => 500
+                'price' => 71000
             ),
             array(
                 'category_id'    => 2,
                 'name'  => 'regla',
-                'price' => 300
+                'price' => 80000
             ),
             array(
                 'category_id'    => 2,
                 'name'  => 'manómetro',
-                'price' => 750
+                'price' => 80000
             ),
             array(
                 'category_id'    => 3,
                 'name'  => 'escáner de diagnóstico',
-                'price' => 7000
+                'price' => 84000
             ),
             array(
                 'category_id'    => 3,
                 'name'  => 'diagnóstico inalámbricas',
-                'price' => 5500
+                'price' => 84000
             ),
             array(
                 'category_id'    => 3,
                 'name'  => 'medición',
-                'price' => 6000
+                'price' => 84000
             ),
         ];
 
