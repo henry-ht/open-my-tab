@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,8 @@ Route::post("register", [AuthController::class, 'register'])->name('api.register
 Route::group([
     'middleware'    => ['auth:sanctum']
 ], function (){
+    Route::get('profile', [ProfileController::class, 'index']);
+
     Route::get("category", [CategoryController::class, 'index']);
 
     Route::apiResource("product", ProductController::class);

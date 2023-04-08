@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Payments;
 use Illuminate\Support\Str;
 use App\Http\Requests\GetRentRequest;
 use App\Models\Rent;
