@@ -7,6 +7,5 @@
     <title></title>
 </head>
 <body>
-    <h2>mientras</h2>
 </body>
 </html>
